@@ -14,6 +14,7 @@ import PostScreen from "./screens/PostScreen";
 import NotificationScreen from "./screens/NotificationScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import Details from "./screens/Details";
+import EditUser from './screens/EditUser';
 
 
 const AppContainer = createStackNavigator(
@@ -102,7 +103,15 @@ const AppContainer = createStackNavigator(
                 headerStyle:{ backgroundColor: '#d35400'},
                 headerTitleStyle:{ color: '#FFF'},
             }
-        }
+        },
+        Edit:{
+            screen:EditUser,
+            navigationOptions:{
+                headerStyle:{ backgroundColor: '#d35400'},
+                headerTitleStyle:{ color: '#FFF'},
+            }
+    }
+        
     },
     {
         mode: "modal",

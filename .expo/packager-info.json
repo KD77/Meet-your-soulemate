@@ -3,7 +3,8 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://2i-kw7.anonymous.meet-your-soulemate.exp.direct",
+  "packagerNgrokUrl": "https://packager.2i-kw7.anonymous.meet-your-soulemate.exp.direct",
+  "ngrokPid": 4217,
+  "webpackServerPort": null
 }

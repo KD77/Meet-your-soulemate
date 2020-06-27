@@ -12,6 +12,7 @@ import {
 
 import { GiftedChat } from "react-native-gifted-chat";
 import firebase, { firestore } from "firebase";
+import Fire from "../Fire";
 
 var name, uid, email;
 
@@ -19,7 +20,8 @@ export default class MessageScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: []
+      messages: [],
+
     };
 
     this.user = firebase.auth().currentUser;
@@ -28,7 +30,7 @@ export default class MessageScreen extends Component {
     const { params } = this.props.navigation.state;
     uid = params.id;
     name = params.name;
-   
+
     console.log("User:" + uid);
 
     this.chatRef = this.getRef().child("chat/" + this.generateChatId());
@@ -37,7 +39,7 @@ export default class MessageScreen extends Component {
   }
 
   //generate ChatId works cause when you are the user sending chat you take user.uid and your friend takes uid
-  // when your friend is using the app to send message s/he takes user.uid and you take the uid cause you are the friend 
+  // when your friend is using the app to send message s/he takes user.uid and you take the uid cause you are the friend
 
   generateChatId() {
     if (this.user.uid > uid) return `${this.user.uid}-${uid}`;
@@ -59,8 +61,7 @@ export default class MessageScreen extends Component {
           createdAt: new Date(child.val().createdAt),
           user: {
             _id: child.val().uid,
-            name:name
-            
+            name: name
           }
         });
       });
@@ -74,7 +75,8 @@ export default class MessageScreen extends Component {
 
   componentDidMount() {
     this.listenForItems(this.chatRefData);
-    
+   
+
   }
 
   componentWillUnmount() {
@@ -97,14 +99,13 @@ export default class MessageScreen extends Component {
     });
   }
   render() {
+    console.log("print state..." + this.state.unknownUser2);
     return (
       <GiftedChat
         messages={this.state.messages}
         onSend={this.onSend.bind(this)}
         user={{
-          _id: this.user.uid,
-          
-
+          _id: this.user.uid
         }}
       />
     );

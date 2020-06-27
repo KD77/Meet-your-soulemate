@@ -61,7 +61,7 @@ export default class HomeScreen extends Component {
   }
 
   render() {
-   
+ 
     if (this.state.user.length == 0) {
       return (
         
@@ -72,7 +72,7 @@ export default class HomeScreen extends Component {
     }
     const {user}=this.state;
     let usersData=Object.values(user)
-    console.log("hello",this.state.user.name)
+    console.log("hello",this.state.user)
     return (
       
       <FlatList
@@ -135,7 +135,7 @@ const style = StyleSheet.create({
   },
   cardImg: {
     width: "100%",
-    height: 200,
+    height: 280,
     borderRadius: 8,
     resizeMode: "cover"
   },

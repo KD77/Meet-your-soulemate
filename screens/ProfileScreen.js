@@ -8,7 +8,8 @@ import {
   TextInput,
   TouchableOpacity
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import Geocoder from 'react-native-geocoding';
 import Fire from "../Fire";
 
 export default class ProfileScreen extends React.Component {
@@ -31,6 +32,24 @@ export default class ProfileScreen extends React.Component {
       .onSnapshot(doc => {
         this.setState({ user: doc.data() });
       });
+      // Initialize the module (needs to be done only once)
+Geocoder.init("AIzaSyDERpEcy5ziXVtUycDye-M8UZBJB6vpdy0"); // use a valid API key
+// With more options
+// Geocoder.init("xxxxxxxxxxxxxxxxxxxxxxxxx", {language : "en"}); // set the language
+
+Geocoder.from("Colosseum")
+		.then(json => {
+			var location = json.results[0].geometry.location;
+			console.log(location);
+		})
+		.catch(error => console.warn(error));
+
+Geocoder.from(41.89, 12.49)
+		.then(json => {
+        		var addressComponent = json.results[0].address_components[0];
+			console.log(addressComponent);
+		})
+		.catch(error => console.warn(error));
   }
 
   render() {
@@ -64,27 +83,20 @@ export default class ProfileScreen extends React.Component {
           </View>
         </View>
         <View style={{ marginHorizontal: 32 }}>
-          <Text style={styles.header}>Username</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="DesignIntoCode"
-            onChangeText={name => {
-              this.setState({ name });
-            }}
-            value={this.state.name}
-          />
-          <View style={{ alignItems: "flex-end", marginTop: 64 }}>
-            <TouchableOpacity style={styles.continue} onPress={this.continue}>
-              <Ionicons name="md-arrow-round-forward" size={24} color="#000" />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <Button
+          
+          <Button
           onPress={() => {
             Fire.shared.signOut();
           }}
           title="Log out"
-        />
+        /><View style={{ alignItems: "flex-end", marginTop: 64 }}>
+        <TouchableOpacity  onPress={()=>this.props.navigation.navigate("Edit")}
+        >
+          <MaterialCommunityIcons name="account-edit" size={24} color="black" />
+          </TouchableOpacity>
+          </View>
+        </View>
+        
       </View>
     );
   }

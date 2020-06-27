@@ -110,7 +110,8 @@ class Fire {
                 name: user.name,
                 email: user.email,
                 avatar: null,
-                id:this.uid
+                id:this.uid,
+                bio:''
             });
 
             if (user.avatar) {
