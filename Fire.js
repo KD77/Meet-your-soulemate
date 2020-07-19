@@ -143,6 +143,9 @@ class Fire {
         return
         firebase.database.ServerValue.TIMESTAMP
     }
+    get storage(){
+        return firebase.storage();
+    }
 }
 
   

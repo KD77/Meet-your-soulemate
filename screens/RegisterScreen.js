@@ -53,18 +53,7 @@ export default class RegisterScreen extends React.Component {
                 <TouchableOpacity style={styles.back} onPress={() => this.props.navigation.goBack()}>
                     <Ionicons name="ios-arrow-round-back" size={32} color="#FFF"></Ionicons>
                 </TouchableOpacity>
-                <View style={{ position: "absolute", top: 64, alignItems: "center", width: "100%" }}>
-                    <Text style={styles.greeting}>{`Hello!\nSign up to get started.`}</Text>
-                    <TouchableOpacity style={styles.avatarPlaceholder} onPress={this.handlePickAvatar}>
-                        <Image source={{ uri: this.state.user.avatar }} style={styles.avatar} />
-                        <Ionicons
-                            name="ios-add"
-                            size={40}
-                            color="#FFF"
-                            style={{ marginTop: 6, marginLeft: 2 }}
-                        ></Ionicons>
-                    </TouchableOpacity>
-                </View>
+            
 
                 <View style={styles.errorMessage}>
                     {this.state.errorMessage && <Text style={styles.error}>{this.state.errorMessage}</Text>}
@@ -102,8 +91,9 @@ export default class RegisterScreen extends React.Component {
                     </View>
                 </View>
 
-                <TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
-                    <Text style={{ color: "#FFF", fontWeight: "500" }}>Sign up</Text>
+                <TouchableOpacity style={styles.button}
+                onPress={() => this.props.navigation.navigate("Avatar",{user:this.state.user})}>
+                    <Text style={{ color: "#FFF", fontWeight: "500" }}>Next</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -114,6 +104,7 @@ export default class RegisterScreen extends React.Component {
                         Already have an account? <Text style={{ fontWeight: "500", color: "#E9446A" }}>Sign in</Text>
                     </Text>
                 </TouchableOpacity>
+                
             </View>
         );
     }

@@ -14,7 +14,10 @@ import Fire from "../Fire";
 
 export default class ProfileScreen extends React.Component {
   state = {
-    user: {}
+    user: {},
+    location:[],
+    url:'',
+    curentUser:'',
   };
 
   continue = () => {
@@ -30,32 +33,54 @@ export default class ProfileScreen extends React.Component {
       .collection("users")
       .doc(user)
       .onSnapshot(doc => {
-        this.setState({ user: doc.data() });
+        this.setState({ user: doc.data(), 
+        curentUser: user,
+        });
       });
-      // Initialize the module (needs to be done only once)
-Geocoder.init("AIzaSyDERpEcy5ziXVtUycDye-M8UZBJB6vpdy0"); // use a valid API key
+    
+  }
+  getLocation (){
+          // Initialize the module (needs to be done only once)
+    
+          Geocoder.init("AIzaSyB3pqbTl0_XHgdZQsuZBrhGTBEFPIQkKS4"); // use a valid API key
 // With more options
 // Geocoder.init("xxxxxxxxxxxxxxxxxxxxxxxxx", {language : "en"}); // set the language
 
-Geocoder.from("Colosseum")
-		.then(json => {
-			var location = json.results[0].geometry.location;
-			console.log(location);
-		})
-		.catch(error => console.warn(error));
 
 Geocoder.from(41.89, 12.49)
 		.then(json => {
         		var addressComponent = json.results[0].address_components[0];
-			console.log(addressComponent);
-		})
-		.catch(error => console.warn(error));
+     console.log(addressComponent)
+      //alert(addressComponent);
+    },
+    error=>{
+      console.log(error)
+    }
+    );
+		
+  }
+  getPhotos(){
+    const user = this.props.uid || Fire.shared.uid;
+  const ref=firebase.storage().ref(`photos/${this.state.curentUser}/`).child('1594414939795');
+  console.log("hello",ref)
+
+
+  this.setState({
+    url:ref,
+    
+  });
+ 
+  
+  
+  
   }
 
   render() {
+    console.log("photos",this.state.url)
     return (
       <View style={styles.container}>
         <View style={{ marginTop: 64, alignItems: "center" }}>
+      
           <View style={styles.avatarContainer}>
             <Image
               source={
@@ -66,22 +91,28 @@ Geocoder.from(41.89, 12.49)
               style={styles.avatar}
             />
           </View>
+
           <Text style={styles.name}>{this.state.user.name}</Text>
+          <TouchableOpacity
+          onPress={()=>{this.getLocation()}}
+          >
+          <Text>location </Text>
+          <Text> </Text>
+          </TouchableOpacity>
+          
         </View>
+
         <View style={styles.statsContainer}>
-          <View style={styles.stat}>
-            <Text style={styles.statAmount}>21</Text>
-            <Text style={styles.statTitle}>Posts</Text>
-          </View>
-          <View style={styles.stat}>
-            <Text style={styles.statAmount}>981</Text>
-            <Text style={styles.statTitle}>Followers</Text>
-          </View>
-          <View style={styles.stat}>
-            <Text style={styles.statAmount}>63</Text>
-            <Text style={styles.statTitle}>Following</Text>
-          </View>
+      <Text>{this.state.user.bio}</Text>
+      <Text>Height: 178</Text>
+      <Text>My Interests</Text>
+
         </View>
+        <View style={{flex:1, justifyContent:"center", alignItems:'center'}}>
+        <Text>Height: 178</Text>
+      <Text>My Interests</Text>
+      </View>
+      
         <View style={{ marginHorizontal: 32 }}>
           
           <Button
@@ -96,6 +127,14 @@ Geocoder.from(41.89, 12.49)
           </TouchableOpacity>
           </View>
         </View>
+        <Image
+      source={
+        this.state.url
+          ? { uri: this.state.url}
+          : require("../assets/tempAvatar.jpg")
+      }
+      style={styles.avatar}
+    />
         
       </View>
     );

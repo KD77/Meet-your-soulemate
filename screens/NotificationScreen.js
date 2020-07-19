@@ -25,7 +25,10 @@ export default class NotificationScreen extends React.Component {
         let a = array[1];
         let currentUser=array[0];
         const updated = [...unknown, { key: a ,current:currentUser}];
-        
+        snapshot.forEach(doc=>{
+          doc.val();
+          console.log("message",doc.val());
+        });
       
         let latest=updated.map(key=>{
          
@@ -73,7 +76,7 @@ export default class NotificationScreen extends React.Component {
         });*/
    // console.log("name..", this.state);
    const {user}=this.state;
-console.log("name..", user);
+
     return (
       <FlatList
         style={style.warpper}
@@ -90,10 +93,9 @@ console.log("name..", user);
                 item.avatar
                   ? { uri: item.avatar }: require("../assets/tempAvatar.jpg") }
               style={style.cardImg}/>
-              <View style={style.footer}>
+              <View style={{justifyContent:'center', alignContent:'center'}}>
               <Text style={{fontWeight:"bold",color:'#000'}}>{item.name}</Text>
-              
-            </View>
+             </View>
           </TouchableOpacity>
 
         </View>
@@ -129,9 +131,10 @@ const style = StyleSheet.create({
   card: {
     marginBottom: 10,
     width: 80,
-    height:200,
-    justifyContent:'center',
-    alignItems:'center',
+    height:100,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    margin: 32
    
   },
   cardImg: {
@@ -139,7 +142,9 @@ const style = StyleSheet.create({
     height:60 ,
     borderRadius: 30,
     resizeMode: "cover",
-    marginRight:10,
+    marginRight:5,
+    justifyContent:'center',
+     alignContent:'center'
   },
   cardText: {
     padding: 10,

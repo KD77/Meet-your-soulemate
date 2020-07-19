@@ -15,6 +15,8 @@ import NotificationScreen from "./screens/NotificationScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import Details from "./screens/Details";
 import EditUser from './screens/EditUser';
+import AvatarScreen from "./screens/AvatarScreen";
+import QuestionScreen from "./screens/QuestionScreen";
 
 
 const AppContainer = createStackNavigator(
@@ -110,7 +112,15 @@ const AppContainer = createStackNavigator(
                 headerStyle:{ backgroundColor: '#d35400'},
                 headerTitleStyle:{ color: '#FFF'},
             }
+
+    },
+    Avatar:{
+         screen:AvatarScreen,
+    },
+    Question:{
+        screen:QuestionScreen,
     }
+   
         
     },
     {
